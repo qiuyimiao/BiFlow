@@ -41,10 +41,14 @@ This section provides detailed instructions on how to run the code for **questio
 #### 1. **Question Generation (QG)**
 
 ##### 1.1 **Forward Question Generation (Forward_QG)**
-
 The forward question generation step generates multiple candidate questions using the **PathFinder** mechanism, which combines breadth-first search and Chain-of-Thought (CoT) strategies. The top-3 questions are selected based on evaluation scores.
-
-##### Command:
+Command:
 ```bash
-python run.py --task forward_QG --task_start_index 0 --task_end_index 1007 --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample 6 --n_evaluate_sample 10 --n_select_sample 3 --prompt_sample cot --temperature 1.0
+python run.py --task forward_QG --task_start_index xx --task_end_index xx --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample xx --n_evaluate_sample xx --n_select_sample xx --prompt_sample xx --temperature 1.0
 
+##### 1.2 Forward Data Processing
+After generating the questions, the results need to be processed to extract the top-3 questions and store them in a structured format.
+Command:
+Run the following script directly:
+```bash
+python data_processing/forward_data_processing.py
