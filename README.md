@@ -1,5 +1,6 @@
 # BiFlow: Teacher-Student Bidirectional Reasoning Enhances MCQ Generation and Distractor Quality
 ## Project Overview
+![image](https://github.com/user-attachments/assets/b2ecae8c-8bc6-4dec-9c11-d7cfcd836452)
 BiFlow is a novel framework designed to enhance the generation of high-quality Multiple Choice Questions (MCQs) and distractors by integrating bidirectional reasoning perspectives from both teachers and students. The framework leverages a combination of teacher reasoning, which generates contextually relevant questions and plausible distractors, and student reasoning, which evaluates the clarity of questions and the misleading nature of distractors. Additionally, BiFlow introduces PathFinder, a mechanism that employs breadth-first search and Chain-of-Thought (CoT) strategies to explore diverse reasoning paths, improving both the quality and diversity of generated questions and distractors.
 
 The project also extends the FairytaleQA dataset to FairytaleMCQ by adding high-quality distractors, providing a robust benchmark for evaluating MCQ generation models. Experimental results demonstrate that BiFlow outperforms existing methods, particularly in generating complex questions and high-quality distractors for long-text scenarios.
