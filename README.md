@@ -25,3 +25,26 @@ Teacher-Student Combination: Combines teacher and student evaluations to select 
 Reasoning Path Generation: Uses CoT prompting to generate multiple reasoning paths for question and distractor generation.
 Path Evaluation: Evaluates the quality of reasoning paths using a zero-shot evaluation prompt.
 Question/Distractor Generation: Generates candidate questions or distractors along the best reasoning paths.
+## Dataset
+The FairytaleMCQ dataset is an extension of the FairytaleQA dataset, which consists of 10,580 explicit and implicit questions derived from 278 children-friendly stories. The dataset is enriched with high-quality distractors generated through a human-agent collaborative annotation pipeline.
+Training Set: 8,548 QA pairs
+Validation Set: 1,025 QA pairs
+Test Set: 1,007 QA pairs (with distractors)
+## Running the Code
+### Prerequisites
+Python 3.8 or higher
+PyTorch
+Transformers library
+OpenAI GPT-4 API (for distractor generation and evaluation)
+### Running the Model
+This section provides detailed instructions on how to run the code for **question generation (QG)** and **distractor generation (DG)** using the BiFlow framework. The code is divided into several steps, each corresponding to a specific part of the pipeline
+#### 1. **Question Generation (QG)**
+
+##### 1.1 **Forward Question Generation (Forward_QG)**
+
+The forward question generation step generates multiple candidate questions using the **PathFinder** mechanism, which combines breadth-first search and Chain-of-Thought (CoT) strategies. The top-3 questions are selected based on evaluation scores.
+
+##### Command:
+```bash
+python run.py --task forward_QG --task_start_index 0 --task_end_index 1007 --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample 6 --n_evaluate_sample 10 --n_select_sample 3 --prompt_sample cot --temperature 1.0
+
