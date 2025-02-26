@@ -41,14 +41,54 @@ This section provides detailed instructions on how to run the code for **questio
 #### 1. **Question Generation (QG)**
 
 ##### 1.1 **Forward Question Generation (Forward_QG)**
-The forward question generation step generates multiple candidate questions using the **PathFinder** mechanism, which combines breadth-first search and Chain-of-Thought (CoT) strategies. The top-3 questions are selected based on evaluation scores.
+The forward question generation step generates multiple candidate questions using the **PathFinder** mechanism, which combines breadth-first search and Chain-of-Thought (CoT) strategies. The top-b questions are selected based on evaluation scores.
 Command:
 ```bash
-python run.py --task forward_QG --task_start_index xx --task_end_index xx --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample xx --n_evaluate_sample xx --n_select_sample xx --prompt_sample xx --temperature 1.0
+python run.py --task forward_QG --task_start_index xx --task_end_index xx --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample xx --n_evaluate_sample xx --n_select_sample b --prompt_sample xx --temperature 1.0
+```
 
 ##### 1.2 Forward Data Processing
 After generating the questions, the results need to be processed to extract the top-3 questions and store them in a structured format.
 Command:
 Run the following script directly:
 ```bash
-python data_processing/forward_data_processing.py
+python data_processing/forwardQG_data_processing.py
+```
+##### 1.3 Backward Question Generation (Backward_QG)
+The backward question generation step evaluates the generated questions by simulating a student's problem-solving process. Each question is answered k times, and the accuracy of the answers is calculated to determine the quality of the question.
+Command:
+```bash
+python run_backward_QG.py --task backward_QG --task_start_index xx --task_end_index xxx --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample xx --n_evaluate_sample xx --n_select_sample xx --prompt_sample cot --temperature 1.0
+```
+##### 1.4 Backward Data Processing
+Command:
+Run the following script directly:
+```bash
+python data_processing/backward_QG_data_processing.py
+```
+
+#### 2. Distractor Generation (DG)
+##### 2.1 Forward Distractor Generation (Forward_DG)
+The forward distractor generation step generates multiple candidate distractors using the PathFinder mechanism. The top-b distractors are selected based on evaluation scores.
+Command:
+```bash
+python run.py --task forward_DG --task_start_index xx --task_end_index xx --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample x --n_evaluate_sample x --n_select_sample b --prompt_sample cot --temperature 1.0
+```
+#### 2.2 Forward DG Data Processing
+After generating the distractors, the results need to be processed to extract the top-3 distractors and store them in a structured format.
+Command:
+Run the following script directly:
+```bash
+python data_processing/forward_DG_data_processing.py
+```
+#### 2.3 Backward Distractor Generation (Backward_DG)
+The backward distractor generation step evaluates the generated distractors by simulating a student's problem-solving process. The order of answers and distractors is shuffled, and each question is answered 6 times to calculate the accuracy.
+Command:
+```bash
+python run_backward_DG.py --task backward_DG --task_start_index xx --task_end_index xx --method_generate sample --method_evaluate vote --method_select greedy --n_generate_sample xx --n_evaluate_sample x --n_select_sample x --prompt_sample cot --temperature 1.0
+```
+
+#### 2.4 Backward DG Data Processing
+```bash
+data_processing/backward_DG_data_processing.py
+```
